@@ -1,0 +1,22 @@
+<mxfile host="65bd71144e">
+    <diagram id="sCTFaWKkNhwQiUkLIjgK" name="Page-1">
+        <mxGraphModel dx="406" dy="787" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="Controller" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="100" y="210" width="350" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="State" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="140" y="260" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Action Subscriptions" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="290" y="260" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Behaviour" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="150" y="590" width="220" height="130" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
