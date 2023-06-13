@@ -46,7 +46,7 @@ namespace Player
 
     private void ToggleWalk()
     {
-      _walking = !_walking;
+      _maxSpeed = _maxSpeed == _runSpeed ? _walkSpeed : _runSpeed;
     }
 
     public void DebugResetRB()
