@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// test asdf
-
 // collider nodes
 public class Blade: MonoBehaviour 
 {
