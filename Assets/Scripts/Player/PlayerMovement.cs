@@ -11,18 +11,15 @@ namespace Player
     private Rigidbody _rb;
 
     [SerializeField]
-    private float _runSpeed = 25.0f;
+    private float _runSpeed = 50.0f;
     [SerializeField]
-    private float _walkSpeed = 5.0f;
+    private float _walkSpeed = 15.0f;
     [SerializeField]
-    private float _maxSpeed = 25f;
+    private float _currentSpeed = 50f;
     [SerializeField]
     private float _rotationSpeed = 10.0f;
     [SerializeField]
-    private float _force = 300f;
-    [SerializeField]
-    private float _moveDrag = 0.2f;
-    private bool _walking = false;
+    private float _moveDrag = 0.1f;
 
     private void Awake() 
     {
@@ -46,7 +43,7 @@ namespace Player
 
     private void ToggleWalk()
     {
-      _maxSpeed = _maxSpeed == _runSpeed ? _walkSpeed : _runSpeed;
+      _currentSpeed = _currentSpeed == _runSpeed ? _walkSpeed : _runSpeed;
     }
 
     public void DebugResetRB()
@@ -83,24 +80,27 @@ namespace Player
       */
 
       // add force
-      _rb.AddForce(movement * _force, ForceMode.Force);
+      _rb.AddForce(movement * _currentSpeed, ForceMode.Force);
 
       // limit max speed
       // this is going to have issues... we need to clamp ONLY the x and z. How would we jump?
       // it also auto limits ALL external forces... RIP DODGE
       // forcing the velocity to a specific Vector also means that we cannot transition from run to walk smoothly
+      /*
       if (_rb.velocity.magnitude > _maxSpeed)
       {
         _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _maxSpeed);
       }
+      */
 
       // get zx velocity after adding force and resistance
       Vector3 xzVelocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
 
-      _animator?.SetFloat("speed", Mathf.Clamp(xzVelocity.magnitude / _runSpeed, 0f, 1f));
+      _animator?.SetFloat("speed", Mathf.Clamp(xzVelocity.magnitude / 8f, 0f, 1f));
 
       // match rotation with current velocity as long as player is doing some movement input
-      if (movement.magnitude > 0f) 
+      // TODO: investigate more precise solution
+      if (movement.magnitude > 0 && xzVelocity.magnitude > 0.1f) 
       {
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(xzVelocity), Time.deltaTime * _rotationSpeed);
       }

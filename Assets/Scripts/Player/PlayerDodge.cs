@@ -9,8 +9,7 @@ namespace Player
     private Rigidbody _rb;
     [SerializeField] private float _dodgeCooldown = 1f;
     [SerializeField] private float _dodgeLength = (1.208f * 0.7931035f); // I really hate this
-    [SerializeField] private float _dodgeForce = 20f;
-    private bool _applyDodgeForce = false;
+    [SerializeField] private float _dodgeForce = 10f;
     private bool _canDodge = true;
     public bool canDodge { get { return _canDodge; } }
 
@@ -38,13 +37,12 @@ namespace Player
         // can dodge needs to factor in whether the player is doing something that makes them unable to dodge
         // perhaps gathering up player state into a singleton and have an "isActionable" function that uses the players
         // various states to determine whether or not actions can occur? See "PlayerState" (WIP)
-        StartCoroutine(DodgeCooldown());
+        //StartCoroutine(DodgeCooldown());
       }
     }
 
-    private void FixedUpdate()
+    public void TriggerDodge()
     {
-      if (!_applyDodgeForce) return;
       _rb.AddForce(transform.forward * _dodgeForce, ForceMode.Impulse);
     }
 
@@ -52,9 +50,7 @@ namespace Player
     {
       _canDodge = false;
       yield return new WaitForSeconds(_dodgeLength * 0.2f);
-      _applyDodgeForce = true;
-      yield return new WaitForSeconds(_dodgeLength * 0.3f);
-      _applyDodgeForce = false;
+      _rb.AddForce(transform.forward * _dodgeForce, ForceMode.Impulse);
       yield return new WaitForSeconds(_dodgeLength);
       _canDodge = true;
     }
