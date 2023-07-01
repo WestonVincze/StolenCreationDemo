@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
   [SerializeField]
   private int _maxHealth = 100;
+  [SerializeField]
   private int _currentHealth;
   private Animator _animator;
 
@@ -65,5 +66,7 @@ public class Health : MonoBehaviour
     }
     // Disable player control, collider etc. 
     // Depends on your implementation
+
+    Destroy(gameObject);
   }
 }
