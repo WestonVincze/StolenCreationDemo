@@ -9,6 +9,7 @@ namespace Player
   {
     private Animator _animator;
     private Rigidbody _rb;
+    private PlayerCamera _camera;
 
     [SerializeField]
     private float _runSpeed = 50.0f;
@@ -25,6 +26,7 @@ namespace Player
     {
       _animator = GetComponentInChildren<Animator>();
       _rb = GetComponent<Rigidbody>();
+      _camera = GetComponent<PlayerCamera>();
 
       // TODO: err handle
     }
@@ -57,7 +59,7 @@ namespace Player
       // get x and z values from inputs
       float horizontalMove = Input.GetAxis("Horizontal");
       float verticalMove = Input.GetAxis("Vertical");
-      Vector3 movement = new Vector3(horizontalMove, 0f, verticalMove);
+      Vector3 movement = new Vector3(horizontalMove, 0f, verticalMove).normalized;
 
       /*
       Vector3 desiredForce = (movement * _force) - _rb.velocity;
@@ -78,6 +80,9 @@ namespace Player
         _rb.AddForce((movement * _force) - _rb.velocity, ForceMode.Force);
       }
       */
+
+      // apply movement direction based on the angle of the camera
+      movement = _camera.CameraDirection() * movement;
 
       // add force
       _rb.AddForce(movement * _currentSpeed, ForceMode.Force);

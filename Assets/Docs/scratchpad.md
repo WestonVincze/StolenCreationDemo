@@ -1,0 +1,3 @@
+- Golem theme for SC? 
+- Defensive walls to prevent enemies from gathering from a resource node
+- stealing from enemies? (would require inventory)

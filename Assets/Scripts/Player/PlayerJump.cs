@@ -4,6 +4,7 @@ public class PlayerJump : MonoBehaviour
 {
   private Animator _animator;
   private Rigidbody _rb;
+  [SerializeField]
   private float _jumpForce = 10f;
 
   private void Start()
