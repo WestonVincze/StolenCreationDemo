@@ -4,12 +4,14 @@ using System.Collections.Generic;
 // collider nodes
 public class Blade: MonoBehaviour 
 {
+  private WeaponHitHandler _hitHandler;
   private Transform[] _bladeNodes;
   private Vector3[] _prevBladeNodePos;
   public bool isBladeActive = false;
   private bool _isPrevBladeActive = false;
   private void Awake()
   {
+    _hitHandler = GetComponentInParent<WeaponHitHandler>();
     _bladeNodes = GetComponentsInChildren<Transform>();
     _prevBladeNodePos = new Vector3[_bladeNodes.Length];
 
@@ -47,15 +49,17 @@ public class Blade: MonoBehaviour
     RaycastHit hitInfo;
     for (int i = 0; i < _bladeNodes.Length; i++)
     {
+      Vector3 hitDir = _bladeNodes[i].position - _prevBladeNodePos[i];
       // from previous position to current
       hit = Physics.Raycast(_prevBladeNodePos[i], 
-          _bladeNodes[i].position - _prevBladeNodePos[i], 
+          hitDir, 
           out hitInfo);
       if (hit)
       {
         Debug.DrawLine(_prevBladeNodePos[i], _bladeNodes[i].position, Color.green, 1f);
         Debug.Log("Hit: " + hitInfo.collider.gameObject.name);
         // hitInfo.collider.gameObject.GetComponent<Enemy>().TakeDamage(_damage);
+        _hitHandler.HandleHit(hitInfo.collider.gameObject, hitDir); // TODO: Determine hit direction using something more intuitive to players
       }
       else 
       {
