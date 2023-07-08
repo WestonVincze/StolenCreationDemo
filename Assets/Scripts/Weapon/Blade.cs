@@ -50,10 +50,12 @@ public class Blade: MonoBehaviour
     for (int i = 0; i < _bladeNodes.Length; i++)
     {
       Vector3 hitDir = _bladeNodes[i].position - _prevBladeNodePos[i];
+      float hitDist = Vector3.Distance(_prevBladeNodePos[i], _bladeNodes[i].position);
       // from previous position to current
       hit = Physics.Raycast(_prevBladeNodePos[i], 
           hitDir, 
-          out hitInfo);
+          out hitInfo,
+          hitDist);
       if (hit)
       {
         Debug.DrawLine(_prevBladeNodePos[i], _bladeNodes[i].position, Color.green, 1f);

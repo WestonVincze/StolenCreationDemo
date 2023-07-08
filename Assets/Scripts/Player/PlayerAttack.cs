@@ -17,6 +17,19 @@ public class PlayerAttack : MonoBehaviour {
       // empty function right now
       _camera.SetToCameraRotation(transform);
       _animator?.SetTrigger("attack");
+      _animator?.SetTrigger("attack_slash");
+    }
+    else if (Input.mouseScrollDelta.y < 0)
+    {
+      Debug.Log("overhead");
+      _animator?.SetTrigger("attack");
+      _animator?.SetTrigger("attack_overhead");
+    }
+    else if (Input.mouseScrollDelta.y > 0)
+    {
+      Debug.Log("stab");
+      _animator?.SetTrigger("attack");
+      _animator?.SetTrigger("attack_stab");
     }
   }
 }
